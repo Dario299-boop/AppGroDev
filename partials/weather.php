@@ -1,5 +1,4 @@
 <?php
-require_once '.config.php'; // ACA SE DEFINEN VARIABLES DE ENTORNO, CLAVE, HOST, USUARIO, DB_NAME
 
 function weatherApi(): void
 {
@@ -18,7 +17,7 @@ function weatherApi(): void
                 function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
-                    var apiKey = "<?php echo APIKEY_WEATHER;?>";
+                    var apiKey = "<?php echo $_ENV['APIKEY_WEATHER'];?>";
                     var urlClima = 'https://api.weatherapi.com/v1/current.json?key=' + apiKey + '&q=' + lat + ',' + lon + '&lang=es';
                     $.getJSON(urlClima, function(data) {
                             // —————— LOCATION ——————
@@ -64,7 +63,7 @@ function weatherApi(): void
                             var currentGustMph = data.current.gust_mph; // 5.4
                             var currentGustKph = data.current.gust_kph; // 8.7
                             $('#displayClima').html(
-                                '<h4>Clima en ' + locationName + ', ' + locationRegion + ' (' + locationCountry + ')</h4>' +
+                                '<h4>Clima en ' + locationName + '<br>' + locationRegion + '</h4>' +
                                 '<p><img src="' + conditionIcon + '" alt="' + conditionText + '" /> <strong>' + conditionText + '</strong></p>' +
                                 '<ul style="list-style:none; padding:0; margin:0;">' +
                                 '<li>Horario: <strong>' + locationLocaltime + '</strong></li>' +
